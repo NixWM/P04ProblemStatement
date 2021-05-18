@@ -64,6 +64,7 @@
         android:text="@string/stars" />
 
     <RadioGroup
+        android:id="@+id/rgStars"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">

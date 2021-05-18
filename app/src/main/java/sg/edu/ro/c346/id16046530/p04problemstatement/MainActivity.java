@@ -8,11 +8,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     EditText etTitle, etSingers, etYear;
     Button btnInsert, btnShowList;
+    RadioButton rbtnStars;
+    RadioGroup rgStar;
 
 
     @Override
@@ -29,11 +33,35 @@ public class MainActivity extends AppCompatActivity {
 
         btnInsert.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
-                // Create the DBHelper object, passing in the activity's Context
+            public void onClick(View v) {
+                String title = etTitle.getText().toString();
+                String singer = etSingers.getText().toString();
+                String year = etYear.getText().toString();
+                rgStar = findViewById(R.id.rgStars);
 
+                // returns as Integer for (year)
+                int songYear = Integer.parseInt(year);
+                int selectedStar = rgStar.getCheckedRadioButtonId();
+                rbtnStars =  findViewById(selectedStar);
+                // returns the relevant Number Object holding the value of the argument passed
+                String num = String.valueOf(rbtnStars.getText());
+                int numStar = Integer.valueOf(num);
+
+                // Create the DBHelper object, passing in the activity's Context
+                DBHelper dbh = new DBHelper(MainActivity.this);
+                long inserted_song = dbh.insertSong(title,singer,songYear,numStar);
+                dbh.close();
+                
+                if (inserted_song != -1){
+                    Toast.makeText(MainActivity.this, "Successfully inserted.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        btnShowList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SecondActivity.class);
-                intent.putExtra("Test", "DONE");
                 startActivity(intent);
             }
         });
