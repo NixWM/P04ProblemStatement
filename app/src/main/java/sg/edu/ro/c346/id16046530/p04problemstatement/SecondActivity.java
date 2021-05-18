@@ -63,10 +63,14 @@ public class SecondActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
+        DBHelper dbh = new DBHelper(this);
+        ArrayList<Song> Songs = dbh.getAllNotes();
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK && requestCode == 9){
-
+            lv.setAdapter(null);
+            adapter = new CustomAdapter(this, R.layout.second_row, Songs);
+            lv.setAdapter(adapter);
         }
     }
 }

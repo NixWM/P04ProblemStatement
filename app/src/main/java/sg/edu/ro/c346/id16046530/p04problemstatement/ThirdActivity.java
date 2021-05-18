@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,7 @@ public class ThirdActivity extends AppCompatActivity {
     Button btnUpdate,btnDelete,btnCancel;
     Song data;
     RadioButton rbtn1, rbtn2, rbtn3, rbtn4, rbtn5;
+    RadioGroup rb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +32,7 @@ public class ThirdActivity extends AppCompatActivity {
         btnUpdate = findViewById(R.id.btnUpdate);
         btnDelete = findViewById(R.id.btnDelete);
         btnCancel = findViewById(R.id.btnCancel);
+        rb = findViewById(R.id.rb);
 
         Intent i = getIntent();
         data = (Song) i.getSerializableExtra("Code");
@@ -63,17 +66,8 @@ public class ThirdActivity extends AppCompatActivity {
                 data.setSingers(etSingers.getText().toString());
                 data.setTitle(etTitle.getText().toString());
                 data.setYear(Integer.parseInt(etYear.getText().toString()));
-                if (rbtn1.isChecked()){
-                    data.setStars(1);
-                }else if (rbtn2.isChecked()){
-                    data.setStars(2);
-                }else if (rbtn3.isChecked()){
-                    data.setStars(3);
-                }else if (rbtn4.isChecked()){
-                    data.setStars(4);
-                }else if (rbtn5.isChecked()){
-                    data.setStars(5);
-                }
+                RadioButton r = findViewById(rb.getCheckedRadioButtonId());
+                data.setStars(Integer.valueOf(r.getText().toString()));
                 dbh.updateSong(data);
                 dbh.close();
                 Intent i = new Intent();
