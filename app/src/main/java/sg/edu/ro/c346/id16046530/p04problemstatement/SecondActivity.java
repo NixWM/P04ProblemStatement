@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class SecondActivity extends AppCompatActivity {
 
     ListView lv;
-    ArrayAdapter adapter;
+    CustomAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class SecondActivity extends AppCompatActivity {
         DBHelper dbh = new DBHelper(this);
         ArrayList<Song> notes = dbh.getAllNotes();
 
-        adapter = new ArrayAdapter(this, R.layout.second_row, notes);
+        adapter = new CustomAdapter(this, R.layout.second_row, notes);
         lv.setAdapter(adapter);
     }
 }
