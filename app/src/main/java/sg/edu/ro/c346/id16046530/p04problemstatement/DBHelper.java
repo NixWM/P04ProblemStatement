@@ -80,11 +80,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectQuery, null);
         if (cursor.moveToFirst()) {
             do {
-                int id = cursor.getInt(1);
-                String songTitle = cursor.getString(2);
-                String nameSinger = cursor.getString(3);
-                int year = cursor.getInt(4);
-                int stars = cursor.getInt(5);
+                int id = cursor.getInt(0);
+                String songTitle = cursor.getString(1);
+                String nameSinger = cursor.getString(2);
+                int year = cursor.getInt(3);
+                int stars = cursor.getInt(4);
                 Song song = new Song(id,songTitle, nameSinger, year, stars);
                 notes.add(song);
             } while (cursor.moveToNext());
