@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
                 int songYear = Integer.parseInt(year);
                 int selectedStar = rgStar.getCheckedRadioButtonId();
                 rbtnStars =  findViewById(selectedStar);
+
                 // returns the relevant Number Object holding the value of the argument passed
                 String num = String.valueOf(rbtnStars.getText());
                 int numStar = Integer.valueOf(num);
