@@ -17,7 +17,7 @@ public class SecondActivity extends AppCompatActivity {
 
     ListView lv;
     CustomAdapter adapter;
-    ArrayList<Song> al5Star;
+    ArrayList<Song> al5Star, alYear;
     ArrayList<Integer> al;
     Button btn5star;
 
@@ -29,6 +29,7 @@ public class SecondActivity extends AppCompatActivity {
         lv = (ListView) this.findViewById(R.id.lv);
         btn5star = findViewById(R.id.btn5star);
         al5Star = new ArrayList<>();
+        alYear = new ArrayList<>();
         al = new ArrayList<>();
 
         DBHelper dbh = new DBHelper(this);
@@ -49,13 +50,14 @@ public class SecondActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                alYear.clear();
                 for (Song i : Songs) {
                     if (i.getYear() == (int)spinner.getSelectedItem()) {
-                        al5Star.add(i);
+                        alYear.add(i);
                     }
                 }
                 lv.setAdapter(null);
-                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, al5Star);
+                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, alYear);
                 lv.setAdapter(adapter);
             }
 
