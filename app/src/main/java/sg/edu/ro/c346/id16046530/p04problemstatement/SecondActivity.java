@@ -21,9 +21,9 @@ public class SecondActivity extends AppCompatActivity {
         lv = (ListView) this.findViewById(R.id.lv);
 
         DBHelper dbh = new DBHelper(this);
-        //ArrayList<Note> notes = dbh.getAllNotes();
+        ArrayList<Song> notes = dbh.getAllNotes();
 
-        //adapter = new ArrayAdapter(this, R.layout.row, notes);
+        adapter = new ArrayAdapter(this, R.layout.second_row, notes);
         lv.setAdapter(adapter);
     }
 }
