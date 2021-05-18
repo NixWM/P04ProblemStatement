@@ -16,7 +16,7 @@ public class SecondActivity extends AppCompatActivity {
 
     ListView lv;
     CustomAdapter adapter;
-    ArrayList<Song> al;
+    ArrayList<Song> al5Star;
     Button btn5star;
 
     @Override
@@ -37,7 +37,7 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
-                intent.putExtra("Code", al.get(position).getId());
+                intent.putExtra("Code", Songs.get(position));
                 startActivityForResult(intent, 9);
             }
         });
@@ -46,7 +46,12 @@ public class SecondActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<Song> Songs = dbh.getAllNotes();
-                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, Songs);
+                for (Song i:Songs) {
+                    if (i.getStars() == 5){
+                        al5Star.add(i);
+                    }
+                }
+                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, al5Star);
                 lv.setAdapter(adapter);
             }
         });

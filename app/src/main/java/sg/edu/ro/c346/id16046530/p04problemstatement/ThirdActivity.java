@@ -33,10 +33,10 @@ public class ThirdActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         data = (Song) i.getSerializableExtra("Code");
-        tvID.setText(data.getId());
-        etTitle.setText(data.getTitle());
-        etSingers.setText(data.getSingers());
-        etYear.setText(data.getYear());
+        tvID.setText(""+data.getId());
+        etTitle.setText(""+data.getTitle());
+        etSingers.setText(""+data.getSingers());
+        etYear.setText(""+data.getYear());
 
         int starNum = data.getStars();
         if(starNum == 1) {
