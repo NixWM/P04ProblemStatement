@@ -80,6 +80,7 @@ public class SecondActivity extends AppCompatActivity {
         btn5star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                al5Star.clear();
                 for (Song i : Songs) {
                     if (i.getStars() == 5) {
                         al5Star.add(i);
