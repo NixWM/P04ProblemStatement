@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:autofillHints=""
         android:ems="10"
-        android:hint="@string/enter_singer_s_name_here"
+        android:hint="Enter singer's name here"
         android:inputType="textPersonName" />
 
     <TextView
