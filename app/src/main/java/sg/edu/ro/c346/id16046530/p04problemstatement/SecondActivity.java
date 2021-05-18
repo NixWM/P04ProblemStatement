@@ -15,84 +15,79 @@ import java.util.ArrayList;
 
 public class SecondActivity extends AppCompatActivity {
 
-    ListView lv;
-    CustomAdapter adapter;
-    ArrayList<Song> al5Star, alYear;
-    ArrayList<Integer> al;
     Button btn5star;
+    ListView lv;
+    ArrayList<Song> al, newal;
+    ArrayList<Integer> spinneral;
+    CustomAdapter adapter;
+    ArrayAdapter<Integer> spinneraa;
+    Spinner spinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.second_activity);
 
-        lv = (ListView) this.findViewById(R.id.lv);
-        btn5star = findViewById(R.id.btn5star);
-        al5Star = new ArrayList<>();
-        alYear = new ArrayList<>();
-        al = new ArrayList<>();
+        btn5star = (Button) findViewById(R.id.btn5star);
+        lv = (ListView) findViewById(R.id.lv);
+        spinner = (Spinner) findViewById(R.id.spinner);
 
-        DBHelper dbh = new DBHelper(this);
-        ArrayList<Song> Songs = dbh.getAllNotes();
-
-        adapter = new CustomAdapter(this, R.layout.second_row, Songs);
+        DBHelper dbh = new DBHelper(SecondActivity.this);
+        al = dbh.getAllNotes();
+        newal = al;
+        adapter = new CustomAdapter(this, R.layout.second_row, al);
         lv.setAdapter(adapter);
 
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        for (int i = 0; i < Songs.size(); i++) {
-            int year = Songs.get(i).getYear();
-            al.add(year);
+        spinneral = new ArrayList<>();
+        for ( Song i: al) {
+            spinneral.add(i.getYear());
         }
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,al);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(aa);
+        spinneraa = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, spinneral);
+        spinneraa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(spinneraa);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        btn5star.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                alYear.clear();
-                for (Song i : Songs) {
-                    if (i.getYear() == (int)spinner.getSelectedItem()) {
-                        alYear.add(i);
-                    }
+            public void onClick(View v) {
+                al = dbh.getAllNotes();
+                newal.clear();
+                for (Song i: al) {
+                    if (i.getStars() == 5)
+                        newal.add(i);
                 }
-                lv.setAdapter(null);
-                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, alYear);
+                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, newal);
                 lv.setAdapter(adapter);
             }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                // your code here
-            }
-
         });
 
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(SecondActivity.this, ThirdActivity.class);
-                intent.putExtra("Code", Songs.get(position));
-                startActivityForResult(intent, 9);
+                Intent i = new Intent(SecondActivity.this, ThirdActivity.class);
+                i.putExtra("Code", newal.get(position));
+                startActivityForResult(i, 9);
             }
         });
 
-        btn5star.setOnClickListener(new View.OnClickListener() {
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                al5Star.clear();
-                for (Song i : Songs) {
-                    if (i.getStars() == 5) {
-                        al5Star.add(i);
-                    }
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+                al = dbh.getAllNotes();
+                int selected = spinneral.get(position);
+                newal.clear();
+                for (Song i: al) {
+                    if (i.getYear() == selected)
+                        newal.add(i);
                 }
-                lv.setAdapter(null);
-                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, al5Star);
+                adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, newal);
                 lv.setAdapter(adapter);
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
         });
-
-
     }
 
     @Override
