@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.P04ProblemStatement">
         <activity android:name=".SecondActivity"/>
-
+        <activity android:name=".ThirdActivity"/>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
