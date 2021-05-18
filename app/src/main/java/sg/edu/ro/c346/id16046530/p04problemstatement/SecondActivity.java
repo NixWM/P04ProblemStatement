@@ -26,6 +26,7 @@ public class SecondActivity extends AppCompatActivity {
 
         lv = (ListView) this.findViewById(R.id.lv);
         btn5star = findViewById(R.id.btn5star);
+        al5Star = new ArrayList<>();
 
         DBHelper dbh = new DBHelper(this);
         ArrayList<Song> Songs = dbh.getAllNotes();
@@ -45,17 +46,27 @@ public class SecondActivity extends AppCompatActivity {
         btn5star.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<Song> Songs = dbh.getAllNotes();
                 for (Song i:Songs) {
                     if (i.getStars() == 5){
                         al5Star.add(i);
                     }
                 }
+                lv.setAdapter(null);
                 adapter = new CustomAdapter(SecondActivity.this, R.layout.second_row, al5Star);
                 lv.setAdapter(adapter);
             }
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == 9){
+
+        }
     }
 }
