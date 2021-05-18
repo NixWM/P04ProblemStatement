@@ -43,11 +43,11 @@ public class CustomAdapter extends ArrayAdapter<Song> {
 
         Song song = songs.get(position);
         int stars = song.getStars();
-        //Check if the property for starts >= 5, if so, "light" up the stars
         tvYear.setText(song.getYear() + "");
         tvTitle.setText(song.getTitle());
         tvSinger.setText(song.getSingers());
 
+        //Set star image
         if (stars >= 5) {
             iv5.setImageResource(android.R.drawable.btn_star_big_on);
             iv4.setImageResource(android.R.drawable.btn_star_big_on);

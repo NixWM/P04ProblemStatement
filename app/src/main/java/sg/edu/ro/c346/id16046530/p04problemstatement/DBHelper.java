@@ -31,7 +31,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_YEAR + " INTEGER,"
                 + COLUMN_STARS + " INTEGER )";
         db.execSQL(createSongTableSql);
-        Log.i("info", "created tables");
+        Log.i("info", "created table");
 
         //Dummy records, to be inserted when the database is created
         for (int i = 0; i< 4; i++) {
@@ -64,7 +64,8 @@ public class DBHelper extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_SONG, null, values);
         db.close();
-        Log.d("SQL Insert","ID:"+ result); //id returned, shouldn’t be -1
+        //Look for the id if it is -1
+        Log.d("SQL Insert","ID:"+ result);
         return result;
     }
     //Record retrieval from database table
